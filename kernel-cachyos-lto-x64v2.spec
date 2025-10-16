@@ -11,7 +11,7 @@
 
 # Linux Kernel Versions
 %define _basekver 6.17
-%define _stablekver 1
+%define _stablekver 3
 %define _rpmver %{version}-%{release}
 %define _kver %{_rpmver}.%{_arch}
 
@@ -26,7 +26,7 @@
 %define _build_minimal 0
 
 # Builds the kernel with clang and enables
-# ThinLTO
+# FullLTO
 %define _build_lto 1
 
 # Builds nvidia-open kernel modules with
@@ -180,7 +180,8 @@ Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-
     
 
     %if %{_build_lto}
-        scripts/config -e LTO_CLANG_THIN
+        scripts/config -d LTO_NONE
+        scripts/config -e LTO_CLANG_FULL
     %endif
 
     %if %{_build_minimal}
