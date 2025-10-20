@@ -11,7 +11,7 @@
 
 # Linux Kernel Versions
 %define _basekver 6.17
-%define _stablekver 3
+%define _stablekver 4
 %define _rpmver %{version}-%{release}
 %define _kver %{_rpmver}.%{_arch}
 
@@ -62,7 +62,7 @@
     %define _lto_args CC=clang CXX=clang++ LD=ld.lld LLVM=1 LLVM_IAS=1
 %endif
 
-%define _kernel_src_dir kernel-ark-fedora-%{_basekver}
+%define _kernel_src_dir linux-%{_tarkver}
 %define _module_args KERNEL_UNAME=%{_kver} IGNORE_PREEMPT_RT_PRESENCE=1 SYSSRC=%{_builddir}/%{_kernel_src_dir} SYSOUT=%{_builddir}/%{_kernel_src_dir}
 
 Name:           kernel-cachyos%{?_lto_args:-lto}
@@ -71,7 +71,7 @@ Version:        %{_basekver}.%{_stablekver}
 
 Release:        x64v%{_x86_64_lvl}_cachyos1%{?_lto_args:.lto}%{?dist}
 License:        GPL-2.0-only
-URL:            https://cachyos.org
+URL:            https://copr.fedorainfracloud.org/coprs/mozixun/CachyOS-Kernel-LTO-x64-v3
 
 Requires:       kernel-core-uname-r = %{_kver}
 Requires:       kernel-modules-uname-r = %{_kver}
@@ -110,7 +110,8 @@ BuildRequires:  gcc-c++
 %endif
 
 # Indexes 0-9 are reserved for the kernel. 10-19 will be reserved for NVIDIA
-Source0:        https://gitlab.com/cki-project/kernel-ark/-/archive/fedora-%{_basekver}/kernel-ark-fedora-%{_basekver}.tar.gz
+
+Source0:        https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-%{_tarkver}.tar.xz
 Source1:        https://raw.githubusercontent.com/CachyOS/linux-cachyos/master/linux-cachyos/config
 
 %if %{_build_minimal}
@@ -475,7 +476,7 @@ Requires:       %{name}-devel = %{_rpmver}
 
 %if %{_build_nv}
 %package nvidia-open
-Summary:        nvidia-open %{_nv_ver} kernel modules for %{name}
+Summary:        nvidia-open kernel modules for %{name}
 Provides:       nvidia-kmod >= %{_nv_ver}
 Provides:       installonlypkg(kernel-module)
 Requires:       kernel-uname-r = %{_kver}
