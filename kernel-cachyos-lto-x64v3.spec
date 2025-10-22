@@ -191,6 +191,12 @@ Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-
         %make_build olddefconfig
     %endif
 
+    # Force Enable Clang AutoFDO and PROPELLER support
+    scripts/config -e CONFIG_ARCH_SUPPORTS_AUTOFDO_CLANG
+    scripts/config -e CONFIG_ARCH_SUPPORTS_PROPELLER_CLANG
+    scripts/config -e CONFIG_AUTOFDO_CLANG
+    scripts/config -e CONFIG_PROPELLER_CLANG
+
     diff -u %{SOURCE1} .config || :
 
 %if %{_build_nv}
