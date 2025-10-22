@@ -181,8 +181,8 @@ Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-
     
 
     %if %{_build_lto}
-        scripts/config -d LTO_NONE
-        scripts/config -e LTO_CLANG_FULL
+        scripts/config -d CONFIG_LTO_NONE
+        scripts/config -e CONFIG_LTO_CLANG_FULL
     %endif
 
     %if %{_build_minimal}
@@ -190,6 +190,12 @@ Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-
     %else
         %make_build olddefconfig
     %endif
+
+    # Force Enable Clang AutoFDO and PROPELLER support
+    scripts/config -e CONFIG_ARCH_SUPPORTS_AUTOFDO_CLANG
+    scripts/config -e CONFIG_ARCH_SUPPORTS_PROPELLER_CLANG
+    scripts/config -e CONFIG_AUTOFDO_CLANG
+    scripts/config -e CONFIG_PROPELLER_CLANG
 
     diff -u %{SOURCE1} .config || :
 
