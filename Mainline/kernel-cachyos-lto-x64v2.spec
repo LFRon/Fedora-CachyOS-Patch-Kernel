@@ -71,7 +71,7 @@ Version:        %{_basekver}.%{_stablekver}
 
 Release:        x64v%{_x86_64_lvl}_cachyos1%{?_lto_args:.lto}%{?dist}
 License:        GPL-2.0-only
-URL:            https://copr.fedorainfracloud.org/coprs/mozixun/CachyOS-Kernel-LTO-x64-v3
+URL:            https://copr.fedorainfracloud.org/coprs/mozixun/CachyOS-Kernel-LTO-x64-Normal
 
 Requires:       kernel-core-uname-r = %{_kver}
 Requires:       kernel-modules-uname-r = %{_kver}
