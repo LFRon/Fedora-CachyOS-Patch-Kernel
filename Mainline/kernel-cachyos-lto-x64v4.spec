@@ -11,7 +11,11 @@
 
 # Linux Kernel Versions
 %define _basekver 6.17
-%define _stablekver 5
+%define _stablekver 6
+
+# 用于跟进CachyOS补丁版本号
+# 这样就可以同时跟进CachyOS的多次补丁
+%define _patchver 1
 %define _rpmver %{version}-%{release}
 %define _kver %{_rpmver}.%{_arch}
 
@@ -69,7 +73,7 @@ Name:           kernel-cachyos%{?_lto_args:-lto}
 Summary:        Linux BORE %{?_lto_args:+ LTO }Cachy Sauce Kernel by CachyOS with other patches and improvements.
 Version:        %{_basekver}.%{_stablekver}
 
-Release:        x64v%{_x86_64_lvl}_cachyos1%{?_lto_args:.lto}%{?dist}
+Release:        x64v%{_x86_64_lvl}_cachyos%{_patchver}%{?_lto_args:.lto}%{?dist}
 License:        GPL-2.0-only
 URL:            https://copr.fedorainfracloud.org/coprs/mozixun/CachyOS-Kernel-LTO-x64-v4
 
@@ -112,7 +116,7 @@ BuildRequires:  gcc-c++
 # Indexes 0-9 are reserved for the kernel. 10-19 will be reserved for NVIDIA
 
 Source0:        https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-%{_tarkver}.tar.xz
-Source1:        https://raw.githubusercontent.com/CachyOS/linux-cachyos/master/linux-cachyos/config
+Source1:        https://raw.githubusercontent.com/CachyOS/linux-cachyos/%{_basekver}/linux-cachyos/config
 
 %if %{_build_minimal}
 # The default modprobed.db provided is used for linux-cachyos CI.
@@ -125,8 +129,7 @@ Source2:        https://raw.githubusercontent.com/Frogging-Family/linux-tkg/mast
 Source10:       https://github.com/NVIDIA/open-gpu-kernel-modules/archive/%{_nv_ver}/%{_nv_pkg}.tar.gz
 %endif
 
-# Patch0:         %{_patch_src}/all/0001-cachyos-base-all.patch
-Patch0:         https://raw.githubusercontent.com/LFRon/CachyOS-fix-6.17.5/refs/heads/master/6.17/all/0001-cachyos-base-all.patch
+Patch0:         %{_patch_src}/all/0001-cachyos-base-all.patch
 Patch1:         %{_patch_src}/sched/0001-bore-cachy.patch
 
 %if %{_build_lto}
