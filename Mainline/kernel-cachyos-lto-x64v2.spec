@@ -11,7 +11,7 @@
 
 # Linux Kernel Versions
 %define _basekver 6.17
-%define _stablekver 5
+%define _stablekver 6
 
 # 用于跟进CachyOS补丁版本号
 # 这样就可以同时跟进CachyOS的多次补丁
@@ -186,7 +186,7 @@ Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-
 
     %if %{_build_lto}
         scripts/config -d CONFIG_LTO_NONE
-        scripts/config -e CONFIG_LTO_CLANG_FULL
+        scripts/config -e CONFIG_LTO_CLANG_THIN
     %endif
 
     %if %{_build_minimal}
