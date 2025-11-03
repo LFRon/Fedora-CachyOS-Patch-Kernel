@@ -11,11 +11,11 @@
 
 # Linux Kernel Versions
 %define _basekver 6.17
-%define _stablekver 6
+%define _stablekver 7
 
 # 用于跟进CachyOS补丁版本号
 # 这样就可以同时跟进CachyOS的多次补丁
-%define _patchver 2
+%define _patchver 1
 %define _rpmver %{version}-%{release}
 %define _kver %{_rpmver}.%{_arch}
 
