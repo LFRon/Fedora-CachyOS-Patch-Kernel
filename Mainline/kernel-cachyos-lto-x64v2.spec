@@ -14,8 +14,8 @@
 %define _stablekver 7
 
 # 用于跟进CachyOS补丁版本号
-# 这样就可以同时跟进CachyOS的多次补丁
-%define _patchver 1
+# 这样就可以同时跟进CachyOS在同个内核版本下的多次补丁
+%define _patchver 3
 %define _rpmver %{version}-%{release}
 %define _kver %{_rpmver}.%{_arch}
 
@@ -39,7 +39,7 @@
 
 # Compile Nvidia OpenGPU Kernel Modules as default
 %define _build_nv 1
-%define _nv_ver 580.95.05
+%define _nv_ver 580.105.08
 
 # Define the tickrate used by the kernel
 # Valid values: 100, 250, 300, 500, 600, 750 and 1000
@@ -116,7 +116,7 @@ BuildRequires:  gcc-c++
 # Indexes 0-9 are reserved for the kernel. 10-19 will be reserved for NVIDIA
 
 Source0:        https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-%{_tarkver}.tar.xz
-Source1:        https://raw.githubusercontent.com/CachyOS/linux-cachyos/%{_basekver}/linux-cachyos/config
+Source1:        https://raw.githubusercontent.com/CachyOS/linux-cachyos/master/linux-cachyos/config
 
 %if %{_build_minimal}
 # The default modprobed.db provided is used for linux-cachyos CI.
@@ -186,7 +186,7 @@ Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-
 
     %if %{_build_lto}
         scripts/config -d CONFIG_LTO_NONE
-        scripts/config -e CONFIG_LTO_CLANG_THIN
+        scripts/config -e CONFIG_LTO_CLANG_FULL
     %endif
 
     %if %{_build_minimal}
@@ -194,6 +194,12 @@ Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-
     %else
         %make_build olddefconfig
     %endif
+
+    # Enable PREEMPT_LAZY as default
+    scripts/config -d CONFIG_PREEMPT
+    scripts/config -d CONFIG_PREEMPT_VOLUNTARY
+    scripts/config -d CONFIG_PREEMPT_RT
+    scripts/config -e CONFIG_PREEMPT_LAZY
 
     # Force Enable Clang AutoFDO and PROPELLER support
     scripts/config -e CONFIG_ARCH_SUPPORTS_AUTOFDO_CLANG
