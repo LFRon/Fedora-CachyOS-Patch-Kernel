@@ -10,8 +10,8 @@
 %undefine _include_frame_pointers
 
 # Linux Kernel Versions
-%define _basekver 6.17
-%define _stablekver 8
+%define _basekver 6.18
+%define _stablekver 0
 
 # 用于跟进CachyOS补丁版本号
 # 这样就可以同时跟进CachyOS在同个内核版本下的多次补丁
@@ -186,6 +186,7 @@ Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-
 
     %if %{_build_lto}
         scripts/config -d CONFIG_LTO_NONE
+        scripts/config -d CONFIG_LTO_CLANG_THIN
         scripts/config -e CONFIG_LTO_CLANG_FULL
     %endif
 
@@ -205,6 +206,7 @@ Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-
     scripts/config -e CONFIG_ARCH_SUPPORTS_AUTOFDO_CLANG
     scripts/config -e CONFIG_ARCH_SUPPORTS_PROPELLER_CLANG
     scripts/config -e CONFIG_AUTOFDO_CLANG
+    scripts/config -e CONFIG_AUTOFDO_PROFILE_ACCURATE
     scripts/config -e CONFIG_PROPELLER_CLANG
 
     diff -u %{SOURCE1} .config || :
