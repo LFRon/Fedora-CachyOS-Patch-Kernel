@@ -134,6 +134,8 @@ Patch1:         %{_patch_src}/sched/0001-bore-cachy.patch
 
 %if %{_build_lto}
 Patch2:         %{_patch_src}/misc/dkms-clang.patch
+# Add patch to enable compiler '-o3' flag
+Patch3:         https://raw.githubusercontent.com/LFRon/Fedora-CachyOS-Patch-Kernel/refs/heads/main/0001-kbuild-Reapply-support-for-CONFIG_CC_OPTIMIZE.patch
 %endif
 
 %if %{_build_nv}
@@ -203,6 +205,10 @@ Patch13:        %{_patch_src}/misc/nvidia/0004-nvkms-Limit-default-maximum-TMDS-
     scripts/config -d CONFIG_PREEMPT_VOLUNTARY
     scripts/config -d CONFIG_PREEMPT_RT
     scripts/config -e CONFIG_PREEMPT_LAZY
+
+    # Enable Compiler -o3 flag
+    scripts/config -d CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE
+    scripts/config -e CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3
 
     # Enable Clang AutoFDO and PROPELLER support
     # scripts/config -e CONFIG_ARCH_SUPPORTS_AUTOFDO_CLANG
