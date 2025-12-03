@@ -134,8 +134,6 @@ Patch1:         %{_patch_src}/sched/0001-bore-cachy.patch
 
 %if %{_build_lto}
 Patch2:         %{_patch_src}/misc/dkms-clang.patch
-# Add patch to enable compiler '-o3' flag
-Patch3:         https://raw.githubusercontent.com/LFRon/Fedora-CachyOS-Patch-Kernel/refs/heads/main/0001-kbuild-Reapply-support-for-CONFIG_CC_OPTIMIZE.patch
 %endif
 
 %if %{_build_nv}
