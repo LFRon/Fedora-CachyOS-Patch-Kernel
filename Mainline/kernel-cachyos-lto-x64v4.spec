@@ -185,6 +185,11 @@ Patch13:        %{_patch_src}/misc/nvidia/0004-nvkms-Limit-default-maximum-TMDS-
     scripts/config -e CONFIG_IMA_APPRAISE_BOOTPARAM
     scripts/config -e CONFIG_IMA_APPRAISE
     scripts/config -e CONFIG_IMA_ARCH_POLICY
+    scripts/config -e CONFIG_MODULE_SIG=y
+    scripts/config -e CONFIG_MODULE_SIG_ALL=y
+    scripts/config -e CONFIG_MODULE_SIG_SHA256=y
+    scripts/config -e CONFIG_SYSTEM_TRUSTED_KEYRING=y
+    scripts/config -e CONFIG_KEXEC_SIG=y
     
 
     %if %{_build_lto}
