@@ -15,7 +15,7 @@
 
 # 用于跟进CachyOS补丁版本号
 # 这样就可以同时跟进CachyOS在同个内核版本下的多次补丁
-%define _patchver 3
+%define _patchver 4
 %define _rpmver %{version}-%{release}
 %define _kver %{_rpmver}.%{_arch}
 
@@ -135,6 +135,11 @@ Patch1:         %{_patch_src}/sched/0001-bore-cachy.patch
 %if %{_build_lto}
 Patch2:         %{_patch_src}/misc/dkms-clang.patch
 %endif
+
+Patch3:         %{_patch_src}/misc/0001-acpi-call.patch
+Patch4:         %{_patch_src}/misc/0001-clang-polly.patch
+Patch5:         %{_patch_src}/misc/0001-handheld.patch
+Patch6:         %{_patch_src}/misc/0001-rt-i915.patch
 
 %if %{_build_nv}
 Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-by-default.patch
