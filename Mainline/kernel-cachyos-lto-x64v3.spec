@@ -201,6 +201,8 @@ Patch13:        %{_patch_src}/misc/nvidia/0004-nvkms-Limit-default-maximum-TMDS-
         scripts/config -d CONFIG_LTO_NONE
         scripts/config -d CONFIG_LTO_CLANG_THIN
         scripts/config -e CONFIG_LTO_CLANG_FULL
+        # If use LTO build, which use Clang as force, so enable Clang Polly
+        scripts/config -e CONFIG_POLLY_CLANG
     %endif
 
     # Enable PREEMPT_LAZY as default
