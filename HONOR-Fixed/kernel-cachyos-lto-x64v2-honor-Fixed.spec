@@ -69,11 +69,11 @@
 %define _kernel_src_dir linux-%{_tarkver}
 %define _module_args KERNEL_UNAME=%{_kver} IGNORE_PREEMPT_RT_PRESENCE=1 SYSSRC=%{_builddir}/%{_kernel_src_dir} SYSOUT=%{_builddir}/%{_kernel_src_dir}
 
-Name:           kernel-cachyos%{?_lto_args:-lto}
-Summary:        Linux BORE %{?_lto_args:+ LTO }Cachy Sauce Kernel by CachyOS with other patches and improvements.
+Name:           kernel-everynight
+Summary:        Evernight Vista Operating System Kernel.Based on CachyOS Kernel
 Version:        %{_basekver}.%{_stablekver}
 
-Release:        x64v%{_x86_64_lvl}_cachyos%{_patchver}%{?_lto_args:.lto}%{?dist}
+Release:        x64_evernight
 License:        GPL-2.0-only
 URL:            https://copr.fedorainfracloud.org/coprs/mozixun/CachyOS-Kernel-LTO-x64-Normal
 
