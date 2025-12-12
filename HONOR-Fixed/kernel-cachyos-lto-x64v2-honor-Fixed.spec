@@ -69,7 +69,7 @@
 %define _kernel_src_dir linux-%{_tarkver}
 %define _module_args KERNEL_UNAME=%{_kver} IGNORE_PREEMPT_RT_PRESENCE=1 SYSSRC=%{_builddir}/%{_kernel_src_dir} SYSOUT=%{_builddir}/%{_kernel_src_dir}
 
-Name:           kernel-everynight
+Name:           kernel-evernight
 Summary:        Evernight Vista Operating System Kernel.Based on CachyOS Kernel
 Version:        %{_basekver}.%{_stablekver}
 
