@@ -75,7 +75,7 @@ Version:        %{_basekver}.%{_stablekver}
 
 Release:        x64v%{_x86_64_lvl}_cachyos%{_patchver}%{?_lto_args:.lto}%{?dist}
 License:        GPL-2.0-only
-URL:            https://copr.fedorainfracloud.org/coprs/mozixun/CachyOS-Kernel-LTO-x64-v4
+URL:            https://copr.fedorainfracloud.org/coprs/mozixun/CachyOS-Kernel-LTO-x64-Normal
 
 Requires:       kernel-core-uname-r = %{_kver}
 Requires:       kernel-modules-uname-r = %{_kver}
@@ -140,9 +140,8 @@ Patch3:         %{_patch_src}/misc/0001-acpi-call.patch
 Patch4:         %{_patch_src}/misc/0001-clang-polly.patch
 Patch5:         %{_patch_src}/misc/0001-handheld.patch
 Patch6:         %{_patch_src}/misc/0001-rt-i915.patch
-Patch7:         https://raw.githubusercontent.com/LFRon/LFRon-File/refs/heads/main/Linux-Patches/Metamechbook/fix-eDP.patch
 # This patch only fixes for HONOR Laptop
-Patch8:         https://raw.githubusercontent.com/LFRon/LFRon-File/refs/heads/main/Linux-Patches/HONOR-Fixed/keyboard-fix.patch
+Patch7:         https://raw.githubusercontent.com/LFRon/LFRon-File/refs/heads/main/Linux-Patches/HONOR-Laptop/keyboard-fix.patch
 
 %if %{_build_nv}
 Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-by-default.patch
@@ -204,6 +203,8 @@ Patch13:        %{_patch_src}/misc/nvidia/0004-nvkms-Limit-default-maximum-TMDS-
         scripts/config -d CONFIG_LTO_NONE
         scripts/config -d CONFIG_LTO_CLANG_THIN
         scripts/config -e CONFIG_LTO_CLANG_FULL
+        # If use LTO build, which use Clang as force, so enable Clang Polly
+        scripts/config -e CONFIG_POLLY_CLANG
     %endif
 
     # Enable PREEMPT_LAZY as default
@@ -218,7 +219,7 @@ Patch13:        %{_patch_src}/misc/nvidia/0004-nvkms-Limit-default-maximum-TMDS-
 
     # Enable Clang AutoFDO and PROPELLER support
     # scripts/config -e CONFIG_ARCH_SUPPORTS_AUTOFDO_CLANG
-    #scripts/config -e CONFIG_ARCH_SUPPORTS_PROPELLER_CLANG
+    # scripts/config -e CONFIG_ARCH_SUPPORTS_PROPELLER_CLANG
     # scripts/config -e CONFIG_AUTOFDO_CLANG
     # scripts/config -e CONFIG_AUTOFDO_PROFILE_ACCURATE
     # scripts/config -e CONFIG_PROPELLER_CLANG
