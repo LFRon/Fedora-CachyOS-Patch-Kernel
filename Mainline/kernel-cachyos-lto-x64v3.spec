@@ -137,7 +137,7 @@ Patch2:         %{_patch_src}/misc/dkms-clang.patch
 %endif
 
 Patch3:         %{_patch_src}/misc/0001-acpi-call.patch
-Patch4:         %{_patch_src}/misc/0001-clang-polly.patch
+Patch4:         https://raw.githubusercontent.com/LFRon/LFRon-File/refs/heads/main/CachyOS-kernel-extra-patches/6.18/0001-clang-polly.patch
 Patch5:         %{_patch_src}/misc/0001-handheld.patch
 Patch6:         %{_patch_src}/misc/0001-rt-i915.patch
 

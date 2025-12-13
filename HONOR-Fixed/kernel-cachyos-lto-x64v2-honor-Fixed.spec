@@ -141,7 +141,7 @@ Patch4:         %{_patch_src}/misc/0001-clang-polly.patch
 Patch5:         %{_patch_src}/misc/0001-handheld.patch
 Patch6:         %{_patch_src}/misc/0001-rt-i915.patch
 # This patch only fixes for HONOR Laptop
-Patch7:         https://raw.githubusercontent.com/LFRon/LFRon-File/refs/heads/main/Linux-Patches/HONOR-Laptop/keyboard-fix.patch
+Patch7:         https://raw.githubusercontent.com/LFRon/LFRon-File/refs/heads/main/CachyOS-kernel-extra-patches/HONOR-Laptop/keyboard-fix.patch
 
 %if %{_build_nv}
 Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-by-default.patch

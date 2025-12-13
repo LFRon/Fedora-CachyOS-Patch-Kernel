@@ -140,7 +140,7 @@ Patch3:         %{_patch_src}/misc/0001-acpi-call.patch
 Patch4:         %{_patch_src}/misc/0001-clang-polly.patch
 Patch5:         %{_patch_src}/misc/0001-handheld.patch
 Patch6:         %{_patch_src}/misc/0001-rt-i915.patch
-Patch7:         https://raw.githubusercontent.com/LFRon/LFRon-File/refs/heads/main/Linux-Patches/Metamechbook/fix-eDP.patch
+Patch7:         https://raw.githubusercontent.com/LFRon/LFRon-File/refs/heads/main/CachyOS-kernel-extra-patches/Metamechbook/fix-eDP.patch
 
 %if %{_build_nv}
 Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-by-default.patch
