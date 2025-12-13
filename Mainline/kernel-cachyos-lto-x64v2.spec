@@ -39,7 +39,7 @@
 
 # Compile Nvidia OpenGPU Kernel Modules as default
 %define _build_nv 1
-%define _nv_ver 580.105.08
+%define _nv_ver 590.44.01
 
 # Define the tickrate used by the kernel
 # Valid values: 100, 250, 300, 500, 600, 750 and 1000
