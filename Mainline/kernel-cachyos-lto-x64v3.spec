@@ -15,7 +15,7 @@
 
 # 用于跟进CachyOS补丁版本号
 # 这样就可以同时跟进CachyOS在同个内核版本下的多次补丁
-%define _patchver 1
+%define _patchver 2
 %define _rpmver %{version}-%{release}
 %define _kver %{_rpmver}.%{_arch}
 
@@ -200,7 +200,7 @@ Patch11:        %{_patch_src}/misc/nvidia/0002-Add-IBT-support.patch
         scripts/config -d CONFIG_LTO_CLANG_THIN
         scripts/config -e CONFIG_LTO_CLANG_FULL
         # If use LTO build, which use Clang as force, so enable Clang Polly
-        scripts/config -e CONFIG_POLLY_CLANG
+        # scripts/config -e CONFIG_POLLY_CLANG
     %endif
 
     # Enable PREEMPT_LAZY as default
