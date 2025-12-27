@@ -15,7 +15,7 @@
 
 # 用于跟进CachyOS补丁版本号
 # 这样就可以同时跟进CachyOS在同个内核版本下的多次补丁
-%define _patchver 2
+%define _patchver 3
 %define _rpmver %{version}-%{release}
 %define _kver %{_rpmver}.%{_arch}
 
@@ -39,7 +39,7 @@
 
 # Compile Nvidia OpenGPU Kernel Modules as default
 %define _build_nv 1
-%define _nv_ver 590.44.01
+%define _nv_ver 580.119.02
 
 # Define the tickrate used by the kernel
 # Valid values: 100, 250, 300, 500, 600, 750 and 1000
@@ -144,6 +144,8 @@ Patch6:         %{_patch_src}/misc/0001-rt-i915.patch
 %if %{_build_nv}
 Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-by-default.patch
 Patch11:        %{_patch_src}/misc/nvidia/0002-Add-IBT-support.patch
+Patch12:        %{_patch_src}/misc/nvidia/0003-nvidia-uvm-Remove-unused-get_devmap_page-parameter.patch
+Patch13:        %{_patch_src}/misc/nvidia/0004-nvkms-Limit-default-maximum-TMDS-character-rate-to-3.patch
 %endif
 
 %description
@@ -233,6 +235,8 @@ cd %{_builddir}/%{_nv_pkg}/kernel-open
 %patch -P 10 -p1
 cd ..
 %patch -P 11 -p1
+%patch -P 12 -p1
+%patch -P 13 -p1
 %endif
 
 %build
