@@ -203,11 +203,13 @@ Patch11:        %{_patch_src}/misc/nvidia/0002-Add-IBT-support.patch
         scripts/config -e CONFIG_POLLY_CLANG
     %endif
 
-    # Enable PREEMPT_LAZY as default
-    # scripts/config -d CONFIG_PREEMPT_LAZY
-    # scripts/config -d CONFIG_PREEMPT_VOLUNTARY
-    # scripts/config -d CONFIG_PREEMPT_RT
-    # scripts/config -e CONFIG_PREEMPT
+    # Enable CONFIG_PREEMPT as default
+    scripts/config -e CONFIG_PREEMPT_BUILD
+    scripts/config -e CONFIG_ARCH_HAS_PREEMPT_LAZY
+    scripts/config -d CONFIG_PREEMPT_LAZY
+    scripts/config -d CONFIG_PREEMPT_VOLUNTARY
+    scripts/config -d CONFIG_PREEMPT_RT
+    scripts/config -e CONFIG_PREEMPT
 
     # Enable Compiler -o3 flag
     scripts/config -d CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE
