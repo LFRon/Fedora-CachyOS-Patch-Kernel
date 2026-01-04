@@ -15,7 +15,7 @@
 
 # 用于跟进CachyOS补丁版本号
 # 这样就可以同时跟进CachyOS在同个内核版本下的多次补丁
-%define _patchver 1
+%define _patchver 2
 %define _rpmver %{version}-%{release}
 %define _kver %{_rpmver}.%{_arch}
 
@@ -204,10 +204,10 @@ Patch11:        %{_patch_src}/misc/nvidia/0002-Add-IBT-support.patch
     %endif
 
     # Enable PREEMPT_LAZY as default
-    scripts/config -d CONFIG_PREEMPT
-    scripts/config -d CONFIG_PREEMPT_VOLUNTARY
-    scripts/config -d CONFIG_PREEMPT_RT
-    scripts/config -e CONFIG_PREEMPT_LAZY
+    # scripts/config -d CONFIG_PREEMPT_LAZY
+    # scripts/config -d CONFIG_PREEMPT_VOLUNTARY
+    # scripts/config -d CONFIG_PREEMPT_RT
+    # scripts/config -e CONFIG_PREEMPT
 
     # Enable Compiler -o3 flag
     scripts/config -d CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE
