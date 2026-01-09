@@ -11,7 +11,7 @@
 
 # Linux Kernel Versions
 %define _basekver 6.18
-%define _stablekver 3
+%define _stablekver 4
 
 # 用于跟进CachyOS补丁版本号
 # 这样就可以同时跟进CachyOS在同个内核版本下的多次补丁
