@@ -11,7 +11,7 @@
 
 # Linux Kernel Versions
 %define _basekver 6.18
-%define _stablekver 5
+%define _stablekver 6
 
 # 用于跟进CachyOS补丁版本号
 # 这样就可以同时跟进CachyOS在同个内核版本下的多次补丁
@@ -206,10 +206,10 @@ Patch11:        %{_patch_src}/misc/nvidia/0002-Add-IBT-support.patch
     # Enable CONFIG_PREEMPT as default
     scripts/config -e CONFIG_PREEMPT_BUILD
     scripts/config -e CONFIG_ARCH_HAS_PREEMPT_LAZY
-    scripts/config -d CONFIG_PREEMPT_LAZY
+    scripts/config -d CONFIG_PREEMPT
     scripts/config -d CONFIG_PREEMPT_VOLUNTARY
     scripts/config -d CONFIG_PREEMPT_RT
-    scripts/config -e CONFIG_PREEMPT
+    scripts/config -e CONFIG_PREEMPT_LAZY
 
     # Enable Compiler -o3 flag
     scripts/config -d CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE
