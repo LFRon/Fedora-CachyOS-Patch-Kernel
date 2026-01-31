@@ -11,7 +11,7 @@
 
 # Linux Kernel Versions
 %define _basekver 6.18
-%define _stablekver 6
+%define _stablekver 8
 
 # 用于跟进CachyOS补丁版本号
 # 这样就可以同时跟进CachyOS在同个内核版本下的多次补丁
@@ -432,6 +432,7 @@ Provides:       kernel-modules-extra-uname-r = %{_kver}
 Provides:       v4l2loopback-kmod = 0.14.0
 Provides:       installonlypkg(kernel-module)
 Requires:       kernel-uname-r = %{_kver}
+Requires:       clang llvm llvm-devel lld
 
 %description modules
     This package provides kernel modules for the %{name}-core kernel package.
