@@ -15,7 +15,7 @@
 
 # 用于跟进CachyOS补丁版本号
 # 这样就可以同时跟进CachyOS在同个内核版本下的多次补丁
-%define _patchver 1
+%define _patchver 2
 %define _rpmver %{version}-%{release}
 %define _kver %{_rpmver}.%{_arch}
 
@@ -137,9 +137,9 @@ Patch2:         %{_patch_src}/misc/dkms-clang.patch
 %endif
 
 Patch3:         %{_patch_src}/misc/0001-acpi-call.patch
-Patch4:         https://raw.githubusercontent.com/LFRon/LFRon-File/refs/heads/main/CachyOS-kernel-extra-patches/6.18/0001-clang-polly.patch
-Patch5:         %{_patch_src}/misc/0001-handheld.patch
-Patch6:         %{_patch_src}/misc/0001-rt-i915.patch
+Patch4:         %{_patch_src}/misc/0001-handheld.patch
+Patch5:         %{_patch_src}/misc/0001-rt-i915.patch
+Patch6:         %{_patch_src}/misc/poc-selector.patch
 
 %if %{_build_nv}
 Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-by-default.patch
@@ -199,8 +199,6 @@ Patch11:        %{_patch_src}/misc/nvidia/0002-Add-IBT-support.patch
         scripts/config -d CONFIG_LTO_NONE
         scripts/config -d CONFIG_LTO_CLANG_THIN
         scripts/config -e CONFIG_LTO_CLANG_FULL
-        # If use LTO build, which use Clang as force, so enable Clang Polly
-        scripts/config -e CONFIG_POLLY_CLANG
     %endif
 
     # Enable CONFIG_PREEMPT as default
@@ -210,6 +208,9 @@ Patch11:        %{_patch_src}/misc/nvidia/0002-Add-IBT-support.patch
     scripts/config -d CONFIG_PREEMPT_VOLUNTARY
     scripts/config -d CONFIG_PREEMPT_RT
     scripts/config -e CONFIG_PREEMPT_LAZY
+
+    # Enable POC Selector
+    scripts/config -e CONFIG_SCHED_POC_SELECTOR
 
     # Enable Compiler -o3 flag
     scripts/config -d CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE
