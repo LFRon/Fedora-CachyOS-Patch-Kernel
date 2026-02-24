@@ -10,12 +10,12 @@
 %undefine _include_frame_pointers
 
 # Linux Kernel Versions
-%define _basekver 6.18
-%define _stablekver 8
+%define _basekver 6.19
+%define _stablekver 3
 
 # 用于跟进CachyOS补丁版本号
 # 这样就可以同时跟进CachyOS在同个内核版本下的多次补丁
-%define _patchver 3
+%define _patchver 1
 %define _rpmver %{version}-%{release}
 %define _kver %{_rpmver}.%{_arch}
 
@@ -31,7 +31,7 @@
 
 # Builds the kernel with clang and enables
 # FullLTO
-%define _build_lto 1
+%define _build_lto 0
 
 # Builds nvidia-open kernel modules with
 # the kernel
@@ -39,7 +39,7 @@
 
 # Compile Nvidia OpenGPU Kernel Modules as default
 %define _build_nv 1
-%define _nv_ver 580.119.02
+%define _nv_ver 590.48.01
 
 # Define the tickrate used by the kernel
 # Valid values: 100, 250, 300, 500, 600, 750 and 1000
@@ -52,7 +52,7 @@
 # Valid values are 1-4
 # An invalid value will continue and use
 # x86_64_v3
-%define _x86_64_lvl 2
+%define _x86_64_lvl 4
 
 # Define variables for directory paths
 # to be used during packaging
@@ -75,7 +75,7 @@ Version:        %{_basekver}.%{_stablekver}
 
 Release:        x64v%{_x86_64_lvl}_cachyos%{_patchver}%{?_lto_args:.lto}%{?dist}
 License:        GPL-2.0-only
-URL:            https://copr.fedorainfracloud.org/coprs/mozixun/CachyOS-Kernel-LTO-x64-Normal
+URL:            https://copr.fedorainfracloud.org/coprs/mozixun/CachyOS-Kernel-LTO-x64-v4
 
 Requires:       kernel-core-uname-r = %{_kver}
 Requires:       kernel-modules-uname-r = %{_kver}
@@ -141,10 +141,11 @@ Patch3:         %{_patch_src}/misc/0001-acpi-call.patch
 Patch4:         %{_patch_src}/misc/0001-handheld.patch
 Patch5:         %{_patch_src}/misc/0001-rt-i915.patch
 Patch6:         %{_patch_src}/misc/poc-selector.patch
+Patch7:         %{_patch_src}/misc/reflex-governor.patch
 
 %if %{_build_nv}
-Patch10:        %{_patch_src}/misc/nvidia/0001-Enable-atomic-kernel-modesetting-by-default.patch
-Patch11:        %{_patch_src}/misc/nvidia/0002-Add-IBT-support.patch
+Patch10:        %{_patch_src}/misc/nvidia/0002-Add-IBT-support.patch
+Patch11:	  %{_patch_src}/misc/nvidia/0003-Fix-compile-for-6.19.patch
 %endif
 
 %description
@@ -163,7 +164,7 @@ Patch11:        %{_patch_src}/misc/nvidia/0002-Add-IBT-support.patch
 
     # Use SElinux by default
     # https://github.com/sirlucjan/copr-linux-cachyos/pull/1
-    scripts/config --set-str CONFIG_LSM lockdown,yama,integrity,selinux,bpf,landlock
+    scripts/config --set-str CONFIG_LSM lockdown,yama,integrity,selinux,bpf,landlock,apparmor
 
     # Do not change the system's hostname
     scripts/config -u DEFAULT_HOSTNAME
@@ -213,6 +214,9 @@ Patch11:        %{_patch_src}/misc/nvidia/0002-Add-IBT-support.patch
     # Enable POC Selector
     scripts/config -e CONFIG_SCHED_POC_SELECTOR
 
+    # Enable Reflex Freq
+    scripts/config -e CPU_FREQ_GOV_REFLEX
+
     # Enable Compiler -o3 flag
     scripts/config -d CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE
     scripts/config -e CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3
@@ -233,9 +237,8 @@ Patch11:        %{_patch_src}/misc/nvidia/0002-Add-IBT-support.patch
     diff -u %{SOURCE1} .config || :
 
 %if %{_build_nv}
-cd %{_builddir}/%{_nv_pkg}/kernel-open
+cd %{_builddir}/%{_nv_pkg}
 %patch -P 10 -p1
-cd ..
 %patch -P 11 -p1
 %endif
 
@@ -376,6 +379,7 @@ Provides:       kernel-core-uname-r = %{_kver}
 Provides:       kernel-uname-r = %{_kver}
 Provides:       installonlypkg(kernel)
 Requires:       kernel-modules-uname-r = %{_kver}
+Requires:       akmods
 Requires(pre):  /usr/bin/kernel-install
 Requires(pre):  coreutils
 Requires(pre):  dracut >= 027
