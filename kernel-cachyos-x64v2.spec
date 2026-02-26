@@ -150,7 +150,6 @@ Patch7:         %{_patch_src}/misc/reflex-governor.patch
 
 %if %{_build_nv}
 Patch10:        %{_patch_src}/misc/nvidia/0002-Add-IBT-support.patch
-Patch11:	  %{_patch_src}/misc/nvidia/0003-Fix-compile-for-6.19.patch
 %endif
 
 %description
@@ -244,7 +243,6 @@ Patch11:	  %{_patch_src}/misc/nvidia/0003-Fix-compile-for-6.19.patch
 %if %{_build_nv}
 cd %{_builddir}/%{_nv_pkg}
 %patch -P 10 -p1
-%patch -P 11 -p1
 %endif
 
 %build
