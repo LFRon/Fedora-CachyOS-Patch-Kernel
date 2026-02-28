@@ -38,7 +38,7 @@
 %define _nv_pkg open-gpu-kernel-modules-%{_nv_ver}
 
 # Compile Nvidia OpenGPU Kernel Modules as default
-%define _build_nv 1
+%define _build_nv 0
 
 %if 0%{?fedora} >= 44
 %define _nv_ver 590.48.01
@@ -148,7 +148,7 @@ Patch5:         %{_patch_src}/misc/0001-rt-i915.patch
 Patch6:         %{_patch_src}/misc/poc-selector.patch
 Patch7:         %{_patch_src}/misc/reflex-governor.patch
 
-%if %{_nv_ver} >= 590.48.01
+%if %{_build_nv}
 Patch10:        %{_patch_src}/misc/nvidia/0003-Fix-compile-for-6.19.patch
 %endif
 
@@ -241,7 +241,6 @@ The meta package for %{name}.
     diff -u %{SOURCE1} .config || :
 
 %if %{_build_nv}
-cd %{_builddir}/%{_nv_pkg}
 %autopatch -p1 -v 10
 %endif
 
