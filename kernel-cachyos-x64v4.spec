@@ -242,7 +242,7 @@ The meta package for %{name}.
 
 %if %{_build_nv}
 cd %{_builddir}/%{_nv_pkg}
-%autopatch -p1 -v 10
+%autopatch -p1 -M 10
 %endif
 
 %build
