@@ -148,7 +148,7 @@ Patch5:         %{_patch_src}/misc/0001-rt-i915.patch
 Patch6:         %{_patch_src}/misc/poc-selector.patch
 Patch7:         %{_patch_src}/misc/reflex-governor.patch
 
-%if %{_nv_ver} >= 590.48.01
+%if %{_nv_ver} >= 590
 Patch10:        %{_patch_src}/misc/nvidia/0003-Fix-compile-for-6.19.patch
 %endif
 
