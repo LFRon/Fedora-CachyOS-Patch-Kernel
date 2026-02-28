@@ -11,11 +11,11 @@
 
 # Linux Kernel Versions
 %define _basekver 6.19
-%define _stablekver 3
+%define _stablekver 4
 
 # 用于跟进CachyOS补丁版本号
 # 这样就可以同时跟进CachyOS在同个内核版本下的多次补丁
-%define _patchver 2
+%define _patchver 1
 %define _rpmver %{version}-%{release}
 %define _kver %{_rpmver}.%{_arch}
 
@@ -148,12 +148,12 @@ Patch5:         %{_patch_src}/misc/0001-rt-i915.patch
 Patch6:         %{_patch_src}/misc/poc-selector.patch
 Patch7:         %{_patch_src}/misc/reflex-governor.patch
 
-%if %{_build_nv}
-Patch10:        %{_patch_src}/misc/nvidia/0002-Add-IBT-support.patch
+%if %{_nv_ver} >= 590.48.01
+Patch10:        %{_patch_src}/misc/nvidia/0003-Fix-compile-for-6.19.patch
 %endif
 
 %description
-    The meta package for %{name}.
+The meta package for %{name}.
 
 %prep
 %setup -q %{?SOURCE10:-b 10} -n %{_kernel_src_dir}
@@ -242,7 +242,7 @@ Patch10:        %{_patch_src}/misc/nvidia/0002-Add-IBT-support.patch
 
 %if %{_build_nv}
 cd %{_builddir}/%{_nv_pkg}
-#%patch -P 10 -p1
+%autopatch -p1 -v 10
 %endif
 
 %build
