@@ -40,11 +40,7 @@
 # Compile Nvidia OpenGPU Kernel Modules as default
 %define _build_nv 0
 
-%if 0%{?fedora} >= 44
-%define _nv_ver 590.48.01
-%else
 %define _nv_ver 580.126.18
-%endif
 
 # Define the tickrate used by the kernel
 # Valid values: 100, 250, 300, 500, 600, 750 and 1000
@@ -148,10 +144,6 @@ Patch5:         %{_patch_src}/misc/0001-rt-i915.patch
 Patch6:         %{_patch_src}/misc/poc-selector.patch
 Patch7:         %{_patch_src}/misc/reflex-governor.patch
 
-%if %{_build_nv}
-Patch10:        %{_patch_src}/misc/nvidia/0003-Fix-compile-for-6.19.patch
-%endif
-
 %description
 The meta package for %{name}.
 
@@ -239,10 +231,6 @@ The meta package for %{name}.
     %endif
 
     diff -u %{SOURCE1} .config || :
-
-%if %{_build_nv}
-%autopatch -p1 -v 10
-%endif
 
 %build
     %make_build EXTRAVERSION=-%{release}.%{_arch} all
