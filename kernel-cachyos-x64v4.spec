@@ -11,11 +11,11 @@
 
 # Linux Kernel Versions
 %define _basekver 6.19
-%define _stablekver 5
+%define _stablekver 6
 
 # 用于跟进CachyOS补丁版本号
 # 这样就可以同时跟进CachyOS在同个内核版本下的多次补丁
-%define _patchver 2
+%define _patchver 1
 %define _rpmver %{version}-%{release}
 %define _kver %{_rpmver}.%{_arch}
 
@@ -67,7 +67,7 @@
     %define _lto_args CC=clang CXX=clang++ LD=ld.lld LLVM=1 LLVM_IAS=1
 %endif
 
-%define _kernel_src_dir linux-%{_tarkver}
+%define _kernel_src_dir linux-cachyos-%{_tarkver}-%{_patchver}
 %define _module_args KERNEL_UNAME=%{_kver} IGNORE_PREEMPT_RT_PRESENCE=1 SYSSRC=%{_builddir}/%{_kernel_src_dir} SYSOUT=%{_builddir}/%{_kernel_src_dir}
 
 Name:           kernel-cachyos%{?_lto_args:-lto}
@@ -115,9 +115,7 @@ BuildRequires:  llvm
 BuildRequires:  gcc-c++
 %endif
 
-# Indexes 0-9 are reserved for the kernel. 10-19 will be reserved for NVIDIA
-
-Source0:        https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-%{_tarkver}.tar.xz
+Source0:        https://github.com/CachyOS/linux/archive/refs/tags/cachyos-%{_tarkver}-%{_patchver}.tar.gz
 Source1:        https://raw.githubusercontent.com/CachyOS/linux-cachyos/master/linux-cachyos/config
 
 %if %{_build_minimal}
@@ -131,25 +129,24 @@ Source2:        https://raw.githubusercontent.com/Frogging-Family/linux-tkg/mast
 Source10:       https://github.com/NVIDIA/open-gpu-kernel-modules/archive/%{_nv_ver}/%{_nv_pkg}.tar.gz
 %endif
 
-Patch0:         %{_patch_src}/all/0001-cachyos-base-all.patch
-Patch1:         %{_patch_src}/sched/0001-bore-cachy.patch
+# Add BORE scheduler
+Patch0:         %{_patch_src}/sched/0001-bore-cachy.patch
 
 %if %{_build_lto}
-Patch2:         %{_patch_src}/misc/dkms-clang.patch
+Patch1:         %{_patch_src}/misc/dkms-clang.patch
 %endif
 
-Patch3:         %{_patch_src}/misc/0001-acpi-call.patch
-Patch4:         %{_patch_src}/misc/0001-handheld.patch
-Patch5:         %{_patch_src}/misc/0001-rt-i915.patch
-Patch6:         %{_patch_src}/misc/poc-selector.patch
-Patch7:         %{_patch_src}/misc/reflex-governor.patch
+Patch2:         %{_patch_src}/misc/0001-acpi-call.patch
+Patch3:         %{_patch_src}/misc/0001-handheld.patch
+Patch4:         %{_patch_src}/misc/0001-rt-i915.patch
+Patch5:         %{_patch_src}/misc/poc-selector.patch
+Patch6:         %{_patch_src}/misc/reflex-governor.patch
 
 %description
 The meta package for %{name}.
 
 %prep
 %setup -q %{?SOURCE10:-b 10} -n %{_kernel_src_dir}
-%autopatch -p1 -v -M 9
 
     cp %{SOURCE1} .config
 
