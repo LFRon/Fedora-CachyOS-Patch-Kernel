@@ -11,7 +11,7 @@
 
 # Linux Kernel Versions
 %define _basekver 6.19
-%define _stablekver 6
+%define _stablekver 7
 
 # 用于跟进CachyOS补丁版本号
 # 这样就可以同时跟进CachyOS在同个内核版本下的多次补丁
@@ -147,6 +147,7 @@ The meta package for %{name}.
 
 %prep
 %setup -q %{?SOURCE10:-b 10} -n %{_kernel_src_dir}
+%autopatch -p1 -v -M 9
 
     cp %{SOURCE1} .config
 
