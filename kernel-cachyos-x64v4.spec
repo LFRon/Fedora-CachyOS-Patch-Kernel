@@ -11,7 +11,7 @@
 
 # Linux Kernel Versions
 %define _basekver 6.19
-%define _stablekver 9
+%define _stablekver 10
 
 # 用于跟进CachyOS补丁版本号
 # 这样就可以同时跟进CachyOS在同个内核版本下的多次补丁
@@ -138,9 +138,10 @@ Patch1:         %{_patch_src}/misc/dkms-clang.patch
 
 Patch2:         %{_patch_src}/misc/0001-acpi-call.patch
 Patch3:         %{_patch_src}/misc/0001-handheld.patch
-Patch4:         %{_patch_src}/misc/0001-rt-i915.patch
-Patch5:         %{_patch_src}/misc/poc-selector.patch
-Patch6:         %{_patch_src}/misc/reflex-governor.patch
+Patch4:         %{_patch_src}/misc/0001-hardened.patch
+Patch5:         %{_patch_src}/misc/0001-rt-i915.patch
+Patch6:         %{_patch_src}/misc/poc-selector.patch
+Patch7:         %{_patch_src}/misc/reflex-governor.patch
 
 %description
 The meta package for %{name}.
