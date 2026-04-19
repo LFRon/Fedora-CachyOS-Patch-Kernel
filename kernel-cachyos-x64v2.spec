@@ -115,7 +115,7 @@ BuildRequires:  llvm
 BuildRequires:  gcc-c++
 %endif
 
-Source0:        https://github.com/CachyOS/linux/archive/refs/tags/cachyos-%{_tarkver}-%{_patchver}.tar.gz
+Source0:        https://github.com/CachyOS/linux/archive/refs/tags/cachyos-%{_basekver}.%{_stablekver}-%{_patchver}.tar.gz
 Source1:        https://raw.githubusercontent.com/CachyOS/linux-cachyos/master/linux-cachyos/config
 
 %if %{_build_minimal}
