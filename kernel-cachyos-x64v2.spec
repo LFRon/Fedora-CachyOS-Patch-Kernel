@@ -1,4 +1,5 @@
 # Fedora bits
+ExclusiveArch: x86_64
 %define __spec_install_post %{__os_install_post}
 %define _build_id_links none
 %define _default_patch_fuzz 2
