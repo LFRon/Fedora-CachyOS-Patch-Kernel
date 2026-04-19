@@ -138,8 +138,7 @@ Patch1:         %{_patch_src}/misc/dkms-clang.patch
 
 Patch2:         %{_patch_src}/misc/0001-acpi-call.patch
 Patch3:         %{_patch_src}/misc/0001-handheld.patch
-Patch4:         %{_patch_src}/misc/0001-hardened.patch
-Patch5:         %{_patch_src}/misc/0001-rt-i915.patch
+Patch4:         %{_patch_src}/misc/0001-rt-i915.patch
 
 %description
 The meta package for %{name}.
