@@ -10,8 +10,8 @@
 %undefine _include_frame_pointers
 
 # Linux Kernel Versions
-%define _basekver 6.19
-%define _stablekver 10
+%define _basekver 7.0
+%define _stablekver 0
 
 # 用于跟进CachyOS补丁版本号
 # 这样就可以同时跟进CachyOS在同个内核版本下的多次补丁
@@ -140,8 +140,6 @@ Patch2:         %{_patch_src}/misc/0001-acpi-call.patch
 Patch3:         %{_patch_src}/misc/0001-handheld.patch
 Patch4:         %{_patch_src}/misc/0001-hardened.patch
 Patch5:         %{_patch_src}/misc/0001-rt-i915.patch
-Patch6:         %{_patch_src}/misc/poc-selector.patch
-Patch7:         %{_patch_src}/misc/reflex-governor.patch
 
 %description
 The meta package for %{name}.
@@ -205,12 +203,6 @@ The meta package for %{name}.
     scripts/config -d CONFIG_PREEMPT_VOLUNTARY
     scripts/config -d CONFIG_PREEMPT_RT
     scripts/config -e CONFIG_PREEMPT_LAZY
-
-    # Enable POC Selector
-    scripts/config -e CONFIG_SCHED_POC_SELECTOR
-
-    # Enable Reflex Freq
-    scripts/config -e CPU_FREQ_GOV_REFLEX
 
     # Enable Compiler -o3 flag
     scripts/config -d CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE
